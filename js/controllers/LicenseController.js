@@ -1,25 +1,25 @@
 import { License } from "../types/License.js";
 
 /**
- * Controller: selects and orders licenses, then delegates rendering to each License.
+ * Controller: selecciona y ordena las licencias y delega el pintado en cada License.
  */
 export class LicenseController {
   #licenses;
 
   /**
-   * @param {Object[]} licensesData Raw license objects (e.g. parsed from JSON).
+   * @param {Object[]} licensesData Objetos de licencia sin procesar (p. ej. leídos del JSON).
    */
   constructor(licensesData) {
     this.#licenses = licensesData.map((data) => new License(data));
   }
 
-  /** Renders the first `count` featured licenses. */
+  /** Pinta las `count` primeras licencias destacadas. */
   renderFeatured(count, parent) {
     const featured = this.#licenses.filter((license) => license.featured);
     this.#renderList(featured, count, parent);
   }
 
-  /** Renders the first `count` discounted licenses, highest discount first. */
+  /** Pinta las `count` primeras licencias con descuento, de mayor a menor descuento. */
   renderOffers(count, parent) {
     const offers = this.#licenses
       .filter((license) => license.hasDiscount)
@@ -27,7 +27,7 @@ export class LicenseController {
     this.#renderList(offers, count, parent);
   }
 
-  /** Renders the latest version of each software, up to `count` licenses. */
+  /** Pinta la última versión de cada software, hasta un máximo de `count` licencias. */
   renderLatest(count, parent) {
     const latestBySoftware = new Map();
 
@@ -41,7 +41,7 @@ export class LicenseController {
     this.#renderList([...latestBySoftware.values()], count, parent);
   }
 
-  /** Renders `count` licenses in random order. */
+  /** Pinta `count` licencias en orden aleatorio. */
   renderAll(count, parent) {
     this.#renderList(shuffle(this.#licenses), count, parent);
   }
@@ -52,8 +52,8 @@ export class LicenseController {
 }
 
 /**
- * Compares two dotted version strings numerically ("2024.3" > "2024.1", "10.8" > "10.7").
- * @returns {number} Positive if a > b, negative if a < b, 0 if equal.
+ * Compara numéricamente dos versiones separadas por puntos ("2024.3" > "2024.1", "10.8" > "10.7").
+ * @returns {number} Positivo si a > b, negativo si a < b y 0 si son iguales.
  */
 function compareVersions(a, b) {
   const partsA = a.split(".").map(Number);
@@ -69,7 +69,7 @@ function compareVersions(a, b) {
   return 0;
 }
 
-/** Returns a shuffled copy of the array (Fisher–Yates). */
+/** Devuelve una copia desordenada del array (algoritmo de Fisher-Yates). */
 function shuffle(items) {
   const shuffled = [...items];
   for (let i = shuffled.length - 1; i > 0; i--) {

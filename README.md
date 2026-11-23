@@ -25,7 +25,7 @@ Web de venta de licencias de software construida en JavaScript vanilla (módulos
 
 ## Convenciones
 
-- Código, nombres y comentarios en inglés; textos de la interfaz en español.
+- Nombres del código (clases, métodos, variables) en inglés; comentarios y textos de la interfaz en español.
 - Clases en `PascalCase`, métodos y variables en `camelCase` (convención de JavaScript), constantes en `UPPER_SNAKE_CASE`.
 - Campos privados (`#`) para el estado interno de `App` y `LicenseController`.
 - El DOM se construye con `createElement` / `textContent` (sin `innerHTML`).

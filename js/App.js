@@ -3,14 +3,14 @@ import { LicenseController } from "./controllers/LicenseController.js";
 const DATA_URL = "./data/licenses.json";
 
 /**
- * App: loads the data and decides where and in which order each section is rendered.
+ * App: carga los datos y decide dónde y en qué orden se pinta cada sección.
  */
 export class App {
   #root;
   #controller;
 
   /**
-   * @param {HTMLElement} root Element where the product sections are rendered.
+   * @param {HTMLElement} root Elemento donde se pintan las secciones de productos.
    */
   constructor(root) {
     this.#root = root;
@@ -30,12 +30,13 @@ export class App {
   async #loadLicenses() {
     const response = await fetch(DATA_URL);
     if (!response.ok) {
-      throw new Error(`Error loading ${DATA_URL}: ${response.status}`);
+      throw new Error(`Error al cargar ${DATA_URL}: ${response.status}`);
     }
     return response.json();
   }
 
   #renderSections() {
+    // El orden de este array es el orden en que aparecen las secciones en la página.
     const sections = [
       { title: "Destacados", count: 4, render: (count, parent) => this.#controller.renderFeatured(count, parent) },
       { title: "Ofertas", count: 8, render: (count, parent) => this.#controller.renderOffers(count, parent) },
@@ -49,6 +50,7 @@ export class App {
     }
   }
 
+  /** Crea una sección con su título y devuelve el contenedor donde van las tarjetas. */
   #createSection(title) {
     const section = document.createElement("section");
     section.className = "products";

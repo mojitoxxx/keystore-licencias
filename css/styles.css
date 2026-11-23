@@ -52,7 +52,7 @@ body {
   font-size: 0.875rem;
 }
 
-/* Product sections */
+/* Secciones de productos */
 .products {
   margin-block: 2rem;
 }
@@ -68,7 +68,7 @@ body {
   gap: 1rem;
 }
 
-/* License card */
+/* Tarjeta de licencia */
 .license-card {
   position: relative;
   display: flex;
@@ -141,7 +141,7 @@ body {
   background: var(--color-discount);
 }
 
-/* Purchase dialog */
+/* Ventana de compra */
 .key-dialog {
   max-width: 420px;
   padding: 1.5rem;

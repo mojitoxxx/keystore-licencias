@@ -1,5 +1,5 @@
 /**
- * Type: a single software license offered in the store.
+ * Type: una licencia de software a la venta en la tienda.
  */
 export class License {
   /**
@@ -7,10 +7,10 @@ export class License {
    * @param {number} data.id
    * @param {string} data.software
    * @param {string} data.version
-   * @param {number} data.price     Base price in euros.
-   * @param {string} data.key       License key shown after purchase.
+   * @param {number} data.price     Precio base en euros.
+   * @param {string} data.key       Clave de licencia que se muestra tras la compra.
    * @param {boolean} data.featured
-   * @param {number} data.discount  Discount percentage (0-100).
+   * @param {number} data.discount  Porcentaje de descuento (0-100).
    */
   constructor({ id, software, version, price, key, featured = false, discount = 0 }) {
     this.id = id;
@@ -31,7 +31,7 @@ export class License {
   }
 
   /**
-   * Renders the license as a product card inside the given parent element.
+   * Pinta la licencia como tarjeta de producto dentro del elemento padre.
    * @param {HTMLElement} parent
    */
   render(parent) {
@@ -62,7 +62,7 @@ export class License {
   }
 
   /**
-   * Simulates a purchase and shows the license key in a modal window.
+   * Simula la compra y muestra la clave de la licencia en una ventana modal.
    */
   buy() {
     const dialog = createElement("dialog", "key-dialog");
@@ -78,6 +78,7 @@ export class License {
     closeButton.addEventListener("click", () => dialog.close());
 
     dialog.append(heading, description, key, closeButton);
+    // Al cerrar la ventana se elimina del DOM para no acumular diálogos.
     dialog.addEventListener("close", () => dialog.remove());
     document.body.append(dialog);
     dialog.showModal();
@@ -86,10 +87,12 @@ export class License {
 
 const priceFormatter = new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" });
 
+/** Formatea un importe como precio en euros (p. ej. "110,49 €"). */
 function formatPrice(amount) {
   return priceFormatter.format(amount);
 }
 
+/** Crea un elemento HTML con su clase y texto. */
 function createElement(tagName, className, text = "") {
   const element = document.createElement(tagName);
   element.className = className;
