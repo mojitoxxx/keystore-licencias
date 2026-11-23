@@ -2,6 +2,8 @@
 
 Web de venta de licencias de software en JavaScript vanilla (módulos ES), siguiendo la arquitectura **App → Controller → Type**.
 
+**Ver la web:** https://mojitoxxx.github.io/keystore-licencias/
+
 ## Estructura de carpetas
 
 ```
