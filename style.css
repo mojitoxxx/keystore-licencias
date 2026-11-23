@@ -1,0 +1,421 @@
+/* ==========================================================================
+   1. Variables
+   ========================================================================== */
+:root {
+  --color-bg: #f4f5f9;
+  --color-surface: #ffffff;
+  --color-surface-soft: #eef0ff;
+  --color-border: #dfe1ea;
+  --color-text: #1d1f2b;
+  --color-muted: #6b6f80;
+  --color-primary: #4f46e5;
+  --color-primary-dark: #3730a3;
+  --color-featured: #d97706;
+  --color-discount: #dc2626;
+  --color-success: #15803d;
+
+  --font-base: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --radius: 12px;
+  --radius-small: 8px;
+  --shadow: 0 2px 8px rgb(0 0 0 / 0.08);
+  --shadow-hover: 0 8px 20px rgb(0 0 0 / 0.12);
+  --content-width: 1200px;
+}
+
+/* ==========================================================================
+   2. Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  line-height: 1.5;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ==========================================================================
+   3. Layout: cabecera, contenido y pie
+   ========================================================================== */
+.site-header {
+  padding: 1.25rem 1rem 2rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: #fff;
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.site-header__tagline {
+  max-width: var(--content-width);
+  margin: 1.5rem auto 0;
+  font-size: 1.15rem;
+  opacity: 0.9;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand__logo {
+  border-radius: var(--radius-small);
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.4);
+}
+
+.brand__name {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.site-nav__link {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  background: rgb(255 255 255 / 0.15);
+}
+
+.site-main {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-footer {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   4. Componentes
+   ========================================================================== */
+
+/* --- Botones --- */
+.button {
+  padding: 0.6rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  background: var(--color-primary);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.button:hover {
+  background: var(--color-primary-dark);
+}
+
+.button--secondary {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.button--secondary:hover {
+  background: var(--color-surface-soft);
+}
+
+.button:focus-visible,
+.filters__input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* --- Secciones --- */
+.section {
+  margin-block: 2.5rem;
+}
+
+.section__title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+/* --- Tarjeta de licencia --- */
+.license-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.license-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.license-card__media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 110px;
+  background: var(--color-surface-soft);
+}
+
+.license-card__image {
+  width: 56px;
+  height: 56px;
+}
+
+.license-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.license-card__category {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.license-card__title {
+  margin: 0.25rem 0;
+  font-size: 1.1rem;
+}
+
+.license-card__details {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+.license-card__description {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+}
+
+.license-card__prices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+  margin: auto 0 1rem;
+  padding-top: 1rem;
+}
+
+.license-card__old-price {
+  color: var(--color-muted);
+}
+
+.license-card__price {
+  font-size: 1.35rem;
+}
+
+.license-card__savings {
+  width: 100%;
+  color: var(--color-success);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+/* --- Etiquetas --- */
+.badge {
+  position: absolute;
+  top: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge--featured {
+  left: 0.75rem;
+  background: var(--color-featured);
+}
+
+.badge--discount {
+  right: 0.75rem;
+  background: var(--color-discount);
+}
+
+/* --- Filtros --- */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.filters__field {
+  display: flex;
+  flex: 1 1 180px;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.filters__label {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.filters__input {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  background: var(--color-surface);
+  font: inherit;
+}
+
+.filters__check {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-bottom: 0.55rem;
+}
+
+.filters__summary {
+  margin: 1rem 0;
+  color: var(--color-muted);
+}
+
+/* --- Mis licencias --- */
+.purchases {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.purchases__item,
+.purchases__empty {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.9rem 1.25rem;
+}
+
+.purchases__item + .purchases__item {
+  border-top: 1px solid var(--color-border);
+}
+
+.purchases__empty {
+  color: var(--color-muted);
+}
+
+.purchases__name {
+  font-weight: 600;
+}
+
+.purchases__key {
+  font-family: var(--font-mono);
+  user-select: all;
+}
+
+/* --- Ventana de compra --- */
+.key-dialog {
+  width: min(420px, calc(100% - 2rem));
+  padding: 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.key-dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+
+.key-dialog__title {
+  margin-top: 0;
+}
+
+.key-dialog__key {
+  display: block;
+  margin: 1rem 0 1.5rem;
+  padding: 0.75rem;
+  background: var(--color-bg);
+  border-radius: var(--radius-small);
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.key-dialog__actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   5. Accesibilidad
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .license-card,
+  .button {
+    transition: none;
+  }
+
+  .license-card:hover {
+    transform: none;
+  }
+}

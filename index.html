@@ -3,14 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tienda de licencias de software: sistemas operativos, ofimática, diseño, desarrollo y más.">
   <title>KeyStore · Licencias de software</title>
-  <link rel="stylesheet" href="./css/styles.css">
-  <script type="module" src="./js/main.js"></script>
+  <link rel="icon" href="./resources/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./scripts/app.js"></script>
 </head>
 <body>
   <header class="site-header">
-    <h1 class="site-header__logo">KeyStore</h1>
-    <p class="site-header__tagline">Licencias de software al mejor precio</p>
+    <div class="site-header__inner">
+      <a class="brand" href="#">
+        <img class="brand__logo" src="./resources/logo.svg" alt="" width="40" height="40">
+        <span class="brand__name">KeyStore</span>
+      </a>
+      <nav class="site-nav" aria-label="Secciones">
+        <a class="site-nav__link" href="#destacados">Destacados</a>
+        <a class="site-nav__link" href="#ofertas">Ofertas</a>
+        <a class="site-nav__link" href="#novedades">Novedades</a>
+        <a class="site-nav__link" href="#catalogo">Catálogo</a>
+        <a class="site-nav__link" href="#mis-licencias">Mis licencias</a>
+      </nav>
+    </div>
+    <p class="site-header__tagline">Licencias de software originales al mejor precio, con entrega inmediata.</p>
   </header>
 
   <main id="app" class="site-main"></main>
@@ -18,5 +32,36 @@
   <footer class="site-footer">
     <p>Proyecto académico · Las claves mostradas son ficticias.</p>
   </footer>
+
+  <!-- Formulario de filtros que la App inserta en la sección "Todas las licencias". -->
+  <template id="filters-template">
+    <form class="filters" role="search">
+      <label class="filters__field">
+        <span class="filters__label">Buscar</span>
+        <input class="filters__input" type="search" name="search" placeholder="Nombre del software">
+      </label>
+      <label class="filters__field">
+        <span class="filters__label">Categoría</span>
+        <select class="filters__input" name="category">
+          <option value="">Todas</option>
+        </select>
+      </label>
+      <label class="filters__field">
+        <span class="filters__label">Ordenar por</span>
+        <select class="filters__input" name="sortBy">
+          <option value="random">Aleatorio</option>
+          <option value="price-asc">Precio: menor a mayor</option>
+          <option value="price-desc">Precio: mayor a menor</option>
+          <option value="discount">Mayor descuento</option>
+        </select>
+      </label>
+      <label class="filters__check">
+        <input type="checkbox" name="onlyOffers">
+        Solo ofertas
+      </label>
+      <button class="button button--secondary filters__clear" type="button">Limpiar filtros</button>
+    </form>
+    <p class="filters__summary" aria-live="polite"></p>
+  </template>
 </body>
 </html>

@@ -1,4 +1,11 @@
-import { License } from "../types/License.js";
+import { License } from "../types/license.js";
+
+/** Criterios de ordenación disponibles en los filtros (cualquier otro valor = aleatorio). */
+const SORTERS = {
+  "price-asc": (a, b) => a.finalPrice - b.finalPrice,
+  "price-desc": (a, b) => b.finalPrice - a.finalPrice,
+  discount: (a, b) => b.discount - a.discount,
+};
 
 /**
  * Controller: selecciona y ordena las licencias y delega el pintado en cada License.
@@ -13,6 +20,17 @@ export class LicenseController {
     this.#licenses = licensesData.map((data) => new License(data));
   }
 
+  /** Número total de licencias. */
+  get count() {
+    return this.#licenses.length;
+  }
+
+  /** Categorías distintas, ordenadas alfabéticamente. */
+  getCategories() {
+    const categories = new Set(this.#licenses.map((license) => license.category));
+    return [...categories].sort((a, b) => a.localeCompare(b, "es"));
+  }
+
   /** Pinta las `count` primeras licencias destacadas. */
   renderFeatured(count, parent) {
     const featured = this.#licenses.filter((license) => license.featured);
@@ -23,7 +41,7 @@ export class LicenseController {
   renderOffers(count, parent) {
     const offers = this.#licenses
       .filter((license) => license.hasDiscount)
-      .sort((a, b) => b.discount - a.discount);
+      .sort(SORTERS.discount);
     this.#renderList(offers, count, parent);
   }
 
@@ -44,6 +62,31 @@ export class LicenseController {
   /** Pinta `count` licencias en orden aleatorio. */
   renderAll(count, parent) {
     this.#renderList(shuffle(this.#licenses), count, parent);
+  }
+
+  /**
+   * Pinta las licencias que cumplen los filtros y devuelve cuántas se han pintado.
+   * @param {Object} filters
+   * @param {string} [filters.search]      Texto a buscar en el nombre del software.
+   * @param {string} [filters.category]    Categoría exacta ("" = todas).
+   * @param {boolean} [filters.onlyOffers] Solo licencias con descuento.
+   * @param {string} [filters.sortBy]      Clave de SORTERS o "random".
+   * @param {HTMLElement} parent
+   * @returns {number}
+   */
+  renderFiltered({ search = "", category = "", onlyOffers = false, sortBy = "random" }, parent) {
+    const term = search.trim().toLowerCase();
+    const matches = this.#licenses.filter(
+      (license) =>
+        (!term || license.software.toLowerCase().includes(term)) &&
+        (!category || license.category === category) &&
+        (!onlyOffers || license.hasDiscount)
+    );
+
+    const compare = SORTERS[sortBy];
+    const sorted = compare ? matches.sort(compare) : shuffle(matches);
+    this.#renderList(sorted, sorted.length, parent);
+    return sorted.length;
   }
 
   #renderList(licenses, count, parent) {
